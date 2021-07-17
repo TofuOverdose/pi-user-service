@@ -8,7 +8,7 @@ services:
             - "8080:${HTTP_PORT}"
         volumes:
             - ./internal:/internal
-        working_dir: /internal/user
+        working_dir: /internal/users
         env_file: 
             - ${ENV}.env
         environment: 
@@ -23,7 +23,7 @@ services:
             - "8090:${GRPC_PORT}"
         volumes:
             - ./internal:/internal
-        working_dir: /internal/user
+        working_dir: /internal/users
         env_file: 
             - ${ENV}.env
         environment: 
