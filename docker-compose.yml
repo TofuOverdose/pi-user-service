@@ -1,0 +1,38 @@
+version: "3"
+
+services:
+    user-service-http:
+        build:
+            context: docker/app
+        ports:
+            - "8080:${HTTP_PORT}"
+        volumes:
+            - ./internal:/internal
+        working_dir: /internal/user
+        env_file: 
+            - ${ENV}.env
+        environment: 
+            SERVER_TYPE: HTTP
+        depends_on:
+            - mongo
+
+    user-service-grpc:
+        build:
+            context: docker/app
+        ports:
+            - "8090:${GRPC_PORT}"
+        volumes:
+            - ./internal:/internal
+        working_dir: /internal/user
+        env_file: 
+            - ${ENV}.env
+        environment: 
+            SERVER_TYPE: GRPC
+        depends_on:
+            - mongo
+
+    mongo: 
+        image: mongo
+        environment: 
+            MONGO_INITDB_ROOT_USERNAME: ${MONGO_USERNAME}
+            MONGO_INITDB_ROOT_PASSWORD: ${MONGO_PASSWORD}
