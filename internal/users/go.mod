@@ -1,4 +1,4 @@
-module example.com/TofuOverdose/pi-user-service/internal/user
+module example.com/TofuOverdose/pi-user-service/internal/users
 
 go 1.16
 
