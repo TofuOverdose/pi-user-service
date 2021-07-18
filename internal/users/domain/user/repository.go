@@ -4,7 +4,7 @@ import "errors"
 
 type UserRepository interface {
 	CreateUser(User) (UserId, error)
-	GetUserById(UserId) (*User, error)
+	GetUserById(UserId) (*User, bool, error)
 	ListUsers(PaginatedListUsersQuery) ([]*User, error)
 }
 

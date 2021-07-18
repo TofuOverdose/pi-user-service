@@ -29,3 +29,15 @@ func (f *UserFactory) NewUser(name string, lastName string, age uint8) (*User, e
 
 	return &User{props: props}, nil
 }
+
+/*
+	BuildUser recreates user model with given Id and Props without validation
+	This function should only be used by repositories to transfer their internal representation to domain model
+	Application-level code must use factory to create user
+*/
+func BuildUser(id UserId, props UserProps) *User {
+	return &User{
+		id:    id,
+		props: props,
+	}
+}
