@@ -9,14 +9,14 @@ type UserFactory struct {
 }
 
 // NewUserFactory creates user factory with constraints
-func NewUserFactory(constraints UserPropsConstraints) UserFactory {
-	return UserFactory{
+func NewUserFactory(constraints UserPropsConstraints) *UserFactory {
+	return &UserFactory{
 		c: constraints,
 	}
 }
 
 // NewUser creates new users according to the constraints
-func (f UserFactory) NewUser(name string, lastName string, age uint8) (*User, error) {
+func (f *UserFactory) NewUser(name string, lastName string, age uint8) (*User, error) {
 	props := UserProps{
 		Name:          name,
 		LastName:      lastName,
