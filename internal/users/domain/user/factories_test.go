@@ -4,7 +4,7 @@ import (
 	"testing"
 	"time"
 
-	"example.com/TofuOverdose/pi-user-service/internal/users/domain/user"
+	"github.com/TofuOverdose/pi-user-service/internal/users/domain/user"
 	"github.com/stretchr/testify/assert"
 )
 

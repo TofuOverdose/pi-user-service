@@ -4,7 +4,7 @@ import (
 	"context"
 	"log"
 
-	"example.com/TofuOverdose/pi-user-service/internal/users/domain/user"
+	"github.com/TofuOverdose/pi-user-service/internal/users/domain/user"
 )
 
 type CreateUserCommand struct {
@@ -29,7 +29,7 @@ func (c *CreateUserCommand) Execute(ctx context.Context, args CreateUserCommandA
 			return "", e
 		}
 	}
-	id, err := c.UserRepository.CreateUser(*usr)
+	id, err := c.UserRepository.CreateUser(usr)
 	if err != nil {
 		log.Println("ERROR: failed to persist new user", err.Error())
 		return "", err

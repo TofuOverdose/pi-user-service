@@ -4,8 +4,8 @@ import (
 	"context"
 	"testing"
 
-	"example.com/TofuOverdose/pi-user-service/internal/users/app/commands"
-	"example.com/TofuOverdose/pi-user-service/internal/users/domain/user"
+	"github.com/TofuOverdose/pi-user-service/internal/users/app/commands"
+	"github.com/TofuOverdose/pi-user-service/internal/users/domain/user"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/mock"
 )
@@ -16,7 +16,7 @@ type repoMock struct {
 	mock.Mock
 }
 
-func (r *repoMock) CreateUser(u user.User) (user.UserId, error) {
+func (r *repoMock) CreateUser(u *user.User) (user.UserId, error) {
 	props := u.GetProps()
 	r.Called(props.Name, props.LastName, props.Age)
 	return user.UserId{Value: mockUserid}, nil

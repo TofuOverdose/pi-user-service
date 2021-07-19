@@ -1,0 +1,62 @@
+syntax = "proto3";
+package tutorial;
+
+option go_package = "github.com/TofuOverdose/pi-user-service";
+
+service UsersService {
+    rpc CreateUser(CreateUserRequest) returns (CreateUserResponse) {}
+    rpc GetUserById(GetUserByIdRequest) returns (User) {}
+    rpc ListUsers(ListUsersRequest) returns (ListUsersResponse) {}
+}
+
+message CreateUserRequest {
+    string name = 1;
+    string last_name = 2;
+    uint32 age = 3;
+}
+
+message CreateUserResponse {
+    string user_id = 1;
+}
+
+message GetUserByIdRequest {
+    string user_id = 1;
+}
+
+message GetUserByIdResponse {
+    string id = 1;
+    string name = 2;
+    string last_name = 3;
+    uint32 age = 4;
+    string recording_date = 5;
+}
+
+message ListUsersRequest {
+    ListUsersQuery query = 1;
+    Pagination pagination = 2;
+}
+
+message ListUsersResponse {
+    repeated User data = 1;
+    Pagination pagination = 2;
+}
+
+message User {
+    string id = 1;
+    string name = 2;
+    string last_name = 3;
+    uint32 age = 4;
+    string recording_date = 5;
+}
+
+message ListUsersQuery {
+    string name = 1;
+    string last_name = 2;
+    uint32 age_min = 3;
+    uint32 age_max = 4;
+}
+
+message Pagination {
+    uint64 page_num = 1;
+    uint64 per_pare = 2;
+}

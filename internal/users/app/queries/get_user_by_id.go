@@ -4,7 +4,7 @@ import (
 	"context"
 	"log"
 
-	"example.com/TofuOverdose/pi-user-service/internal/users/domain/user"
+	"github.com/TofuOverdose/pi-user-service/internal/users/domain/user"
 )
 
 type GetUserByIdQuery struct {
