@@ -3,3 +3,6 @@ start-dev:
 
 stop-dev:
 	docker-compose down
+
+run-tests:
+	./scripts/run-tests.sh
