@@ -91,7 +91,7 @@ func TestCreateUser_WithInvalidInput(t *testing.T) {
 		LastName: lastName,
 		Age:      age,
 	})
-	repo.AssertCalled(t, "CreateUser", name, lastName, user.NewAge(age))
+	repo.AssertNotCalled(t, "CreateUser", name, lastName, user.NewAge(age))
 	assert.Equal(t, "", id)
 	assert.Error(t, err)
 	assert.IsType(t, &user.ModelValidationError{}, err)
