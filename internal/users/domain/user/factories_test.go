@@ -11,7 +11,6 @@ import (
 func TestNewUser(t *testing.T) {
 	t.Parallel()
 
-	t.Log("Creating user successfully within constraints")
 	factory := user.NewUserFactory(user.UserPropsConstraints{
 		NameMinLen:     4,
 		NameMaxLen:     5,
@@ -26,7 +25,6 @@ func TestNewUser(t *testing.T) {
 		age      uint8 = 16
 	)
 	user, err := factory.NewUser(name, lastName, age)
-	t.Log(user, err)
 	assert.Nil(t, err, "Should create user without error")
 	assert.NotNil(t, user, "User model should be returned")
 

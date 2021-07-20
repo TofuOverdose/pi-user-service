@@ -14,8 +14,8 @@ type PaginatedUserList struct {
 	Data    []User
 }
 
-type ErrUserNotFound struct {}
+type ErrUserNotFound struct{}
 
-func (e *ErrUserNotFound) Error() string {
+func (e ErrUserNotFound) Error() string {
 	return "User with given ID not found"
 }

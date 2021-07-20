@@ -50,6 +50,7 @@ func userRepository() user.UserRepository {
 	repo, err := mongo.NewUserRepository(mongo.Config{
 		ConnTimeout: 10 * time.Second,
 		ConnUri:     getEnvString("MONGO_URI"),
+		Database:    getEnvString("MONGO_DATABASE"),
 	})
 	if err != nil {
 		panic(err)

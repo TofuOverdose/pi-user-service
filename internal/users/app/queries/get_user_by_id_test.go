@@ -73,5 +73,5 @@ func TestGetUserById_WithWrongId(t *testing.T) {
 	repo.AssertCalled(t, "GetUserById", uid)
 	assert.Nil(t, usr)
 	assert.Error(t, err)
-	assert.IsType(t, &queries.ErrUserNotFound{}, err)
+	assert.IsType(t, queries.ErrUserNotFound{}, err)
 }

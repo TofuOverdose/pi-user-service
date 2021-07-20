@@ -1,12 +1,13 @@
 syntax = "proto3";
-package tutorial;
 
-option go_package = "github.com/TofuOverdose/pi-user-service";
+package protogen;
+
+option go_package = "github.com/TofuOverdose/pi-user-service/internal/users/ports/grpc/protogen";
 
 service UsersService {
-    rpc CreateUser(CreateUserRequest) returns (CreateUserResponse) {}
-    rpc GetUserById(GetUserByIdRequest) returns (User) {}
-    rpc ListUsers(ListUsersRequest) returns (ListUsersResponse) {}
+    rpc CreateUser (CreateUserRequest) returns (CreateUserResponse) {}
+    rpc GetUserById (GetUserByIdRequest) returns (User) {}
+    rpc ListUsers (ListUsersRequest) returns (ListUsersResponse) {}
 }
 
 message CreateUserRequest {

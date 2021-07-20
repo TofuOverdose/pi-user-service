@@ -20,7 +20,7 @@ func (c *GetUserByIdQuery) Execute(ctx context.Context, id string) (*User, error
 	}
 
 	if !found {
-		return nil, &ErrUserNotFound{}
+		return nil, ErrUserNotFound{}
 	}
 
 	props := usr.GetProps()

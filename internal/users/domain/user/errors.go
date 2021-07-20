@@ -7,7 +7,11 @@ type ModelValidationError struct {
 }
 
 func (e ModelValidationError) Error() string {
-	return "Validation for model failed"
+	msg := "Validation errors:"
+	for _, fe := range e.FieldErrors {
+		msg += fmt.Sprintf(" %s (%s),", fe.Field, fe.Message)
+	}
+	return msg
 }
 
 type FieldValidationError struct {

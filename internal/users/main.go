@@ -5,7 +5,8 @@ import (
 	"os"
 	"strings"
 
-	"github.com/TofuOverdose/pi-user-service/internal/users/ports"
+	"github.com/TofuOverdose/pi-user-service/internal/users/ports/grpc"
+	"github.com/TofuOverdose/pi-user-service/internal/users/ports/http"
 )
 
 func main() {
@@ -14,10 +15,18 @@ func main() {
 	app := makeApp()
 	switch strings.ToUpper(serverType) {
 	case "HTTP":
+		config := http.ServerConfig{
+			Port: ":" + getEnvString("HTTP_PORT"),
+		}
 		log.Println("Starting HTTP server")
-		log.Fatal(ports.ServeHttp(":"+getEnvString("HTTP_PORT"), app))
+		log.Fatal(http.Serve(app, config))
 	case "GRPC":
+		config := grpc.ServerConfig{
+			Port:          ":" + getEnvString("GRPC_PORT"),
+			UseReflection: getEnvString("ENV") == "dev",
+		}
 		log.Println("Starting gRPC server")
+		log.Fatal(grpc.Serve(app, config))
 	default:
 		log.Fatalf("Unknown server type: %s\n", serverType)
 	}
