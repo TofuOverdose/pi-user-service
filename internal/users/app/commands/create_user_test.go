@@ -26,7 +26,7 @@ func (r *repoMock) GetUserById(user.UserId) (*user.User, bool, error) {
 	return nil, false, nil
 }
 
-func (r *repoMock) ListUsers(user.PaginatedListUsersQuery) ([]*user.User, error) {
+func (r *repoMock) ListUsers(user.ListUsersQuery) (*user.ListUsersResult, error) {
 	return nil, nil
 }
 

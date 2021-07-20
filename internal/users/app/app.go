@@ -16,4 +16,5 @@ type UserAppCommands struct {
 
 type UserAppQueries struct {
 	GetUserById queries.GetUserByIdQuery
+	ListUsers   queries.ListUsersQuery
 }

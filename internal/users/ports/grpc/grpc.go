@@ -48,17 +48,34 @@ func (s *server) GetUserById(ctx context.Context, req *proto.GetUserByIdRequest)
 			return nil, status.Error(codes.Unknown, "Server Error")
 		}
 	}
+	return userToMsg(usr), nil
+}
+
+func (s *server) ListUsers(ctx context.Context, req *proto.ListUsersRequest) (*proto.ListUsersResponse, error) {
+	res, err := s.App.Queries.ListUsers.Execute(ctx, queries.ListUsersQueryArgs{
+		SortBy: req.SortOrder.Field,
+		Order:  req.SortOrder.Order,
+	})
+	if err != nil {
+		return nil, status.Error(codes.Unknown, "Server Error")
+	}
+	usrs := make([]*proto.User, len(res.Data))
+	for i, u := range res.Data {
+		usrs[i] = userToMsg(u)
+	}
+	return &proto.ListUsersResponse{
+		Data: usrs,
+	}, nil
+}
+
+func userToMsg(usr *queries.User) *proto.User {
 	return &proto.User{
 		Id:            usr.Id,
 		Name:          usr.Name,
 		LastName:      usr.LastName,
 		Age:           uint32(usr.Age),
 		RecordingDate: usr.RecordingDate,
-	}, nil
-}
-
-func (s *server) ListUsers(context.Context, *proto.ListUsersRequest) (*proto.ListUsersResponse, error) {
-	return nil, status.Error(codes.Unimplemented, "Endpoint Not Implemented")
+	}
 }
 
 func Serve(app *app.UserApp, config ServerConfig) error {

@@ -1,50 +1,35 @@
 package user
 
-import "errors"
-
 type UserRepository interface {
 	CreateUser(*User) (UserId, error)
 	GetUserById(UserId) (*User, bool, error)
-	ListUsers(PaginatedListUsersQuery) ([]*User, error)
+	ListUsers(ListUsersQuery) (*ListUsersResult, error)
 }
 
-// ListUserQuery specifies the filters for listing the users
+type ListUsersResult struct {
+	Users []*User
+}
+
+// ListUserQuery specifies the filters and sorting for the users listing
 type ListUsersQuery struct {
-	Name     *string
-	LastName *string
-	Age      *AgeQuery
+	SortSpec SortSpec
 }
 
-type PaginatedListUsersQuery struct {
-	Offset uint
-	Limit  uint
-	Query  ListUsersQuery
+type SortSpec struct {
+	Field SortField
+	Order SortOrder
 }
 
-type AgeQuery struct {
-	UpperBound *Age
-	LowerBound *Age
-}
+type SortField string
 
-func AgeLessThan(age Age) AgeQuery {
-	return AgeQuery{
-		UpperBound: &age,
-	}
-}
+var (
+	SortFieldAge           SortField = "age"
+	SortFieldRecordingDate SortField = "recording_date"
+)
 
-func AgeMoreThan(age Age) AgeQuery {
-	return AgeQuery{
-		LowerBound: &age,
-	}
-}
+type SortOrder int
 
-func AgeBetween(lowerBound, upperBound Age) (*AgeQuery, error) {
-	if lowerBound.LessThan(upperBound) {
-		return nil, errors.New("Invalid query")
-	}
-
-	return &AgeQuery{
-		LowerBound: &lowerBound,
-		UpperBound: &upperBound,
-	}, nil
-}
+var (
+	SortDesc SortOrder = -1
+	SortAsc  SortOrder = 1
+)

@@ -30,6 +30,10 @@ func makeApp() *app.UserApp {
 				UserRepository: userRepository,
 				DateTimeFormat: time.RFC3339,
 			},
+			ListUsers: queries.ListUsersQuery{
+				UserRepository: userRepository,
+				DateTimeFormat: time.RFC3339,
+			},
 		},
 	}
 }

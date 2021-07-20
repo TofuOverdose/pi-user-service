@@ -33,13 +33,11 @@ message GetUserByIdResponse {
 }
 
 message ListUsersRequest {
-    ListUsersQuery query = 1;
-    Pagination pagination = 2;
+    ListUsersSort sort_order = 1;
 }
 
 message ListUsersResponse {
     repeated User data = 1;
-    Pagination pagination = 2;
 }
 
 message User {
@@ -50,14 +48,7 @@ message User {
     string recording_date = 5;
 }
 
-message ListUsersQuery {
-    string name = 1;
-    string last_name = 2;
-    uint32 age_min = 3;
-    uint32 age_max = 4;
-}
-
-message Pagination {
-    uint64 page_num = 1;
-    uint64 per_pare = 2;
+message ListUsersSort {
+    string field = 1;
+    string order = 2;
 }

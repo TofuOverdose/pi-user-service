@@ -23,12 +23,5 @@ func (c *GetUserByIdQuery) Execute(ctx context.Context, id string) (*User, error
 		return nil, ErrUserNotFound{}
 	}
 
-	props := usr.GetProps()
-	return &User{
-		Id:            usr.GetId().Value,
-		Name:          props.Name,
-		LastName:      props.LastName,
-		Age:           props.Age.Value,
-		RecordingDate: props.RecordingDate.Format(c.DateTimeFormat),
-	}, nil
+	return marshalUser(usr, c.DateTimeFormat), nil
 }

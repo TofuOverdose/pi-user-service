@@ -75,14 +75,16 @@ func TestListUsers_Pagination(t *testing.T) {
 	}
 
 	// All users should be listed properly
-	query := user.PaginatedListUsersQuery{
-		Offset: 0,
-		Limit:  uint(usersCount + 1),
+	query := user.ListUsersQuery{
+		SortSpec: user.SortSpec{
+			Field: user.SortFieldRecordingDate,
+			Order: user.SortAsc,
+		},
 	}
 	res, err := repo.ListUsers(query)
 	assert.Nil(t, err)
 	assert.NotNil(t, res)
-	assert.Equal(t, len(users), len(res))
+	assert.Equal(t, len(users), len(res.Users))
 }
 
 func testUser() *user.User {

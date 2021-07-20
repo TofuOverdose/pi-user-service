@@ -77,7 +77,8 @@ func (r *UserRepository) GetUserById(uid user.UserId) (*user.User, bool, error) 
 
 	return mongoToModel(u), true, nil
 }
-func (r *UserRepository) ListUsers(query user.PaginatedListUsersQuery) ([]*user.User, error) {
+
+func (r *UserRepository) ListUsers(query user.ListUsersQuery) (*user.ListUsersResult, error) {
 	filter, opts := buildFindQuery(query)
 	cursor, err := r.userCollection().Find(context.TODO(), filter, opts)
 	if err != nil {
@@ -93,36 +94,19 @@ func (r *UserRepository) ListUsers(query user.PaginatedListUsersQuery) ([]*user.
 	for i, r := range results {
 		out[i] = mongoToModel(r)
 	}
-	return out, nil
+	return &user.ListUsersResult{
+		Users: out,
+	}, nil
 }
 
 func (r *UserRepository) userCollection() *mongo.Collection {
 	return r.client.Database(r.config.Database).Collection("users")
 }
 
-func buildFindQuery(query user.PaginatedListUsersQuery) (bson.M, *options.FindOptions) {
-	opts := options.Find().
-		SetSort(bson.D{{"recording_date", -1}}).
-		SetSkip(int64(query.Offset)).
-		SetLimit(int64(query.Limit))
-
+func buildFindQuery(query user.ListUsersQuery) (bson.M, *options.FindOptions) {
+	sort := bson.D{{string(query.SortSpec.Field), query.SortSpec.Order}}
+	opts := options.Find().SetSort(sort)
 	filter := bson.M{}
-	if name := query.Query.Name; name != nil {
-		filter["name"] = bson.M{"$eq": name}
-	}
-	if lastName := query.Query.LastName; lastName != nil {
-		filter["last_name"] = bson.M{"$eq": lastName}
-	}
-	if ageQuery := query.Query.Age; ageQuery != nil {
-		ageFilter := bson.M{}
-		if ageQuery.LowerBound != nil {
-			ageFilter["$gte"] = *ageQuery.LowerBound
-		}
-		if ageQuery.UpperBound != nil {
-			ageFilter["$lte"] = *ageQuery.UpperBound
-		}
-		filter["age"] = ageFilter
-	}
 
 	return filter, opts
 }
