@@ -7,6 +7,7 @@ import (
 	"github.com/TofuOverdose/pi-user-service/internal/users/app"
 	"github.com/TofuOverdose/pi-user-service/internal/users/app/commands"
 	"github.com/TofuOverdose/pi-user-service/internal/users/app/queries"
+	"github.com/TofuOverdose/pi-user-service/internal/users/domain/user"
 	proto "github.com/TofuOverdose/pi-user-service/internal/users/ports/grpc/protogen"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/codes"
@@ -27,7 +28,7 @@ func (s *server) CreateUser(ctx context.Context, req *proto.CreateUserRequest) (
 	})
 	if err != nil {
 		switch e := err.(type) {
-		case commands.ErrWrongInput:
+		case user.ModelValidationError:
 			return nil, status.Error(codes.InvalidArgument, e.Error())
 		default:
 			return nil, status.Error(codes.Unknown, "Server Error")

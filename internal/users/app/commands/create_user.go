@@ -23,7 +23,7 @@ func (c *CreateUserCommand) Execute(ctx context.Context, args CreateUserCommandA
 	if err != nil {
 		switch e := err.(type) {
 		case user.ModelValidationError:
-			return "", ErrWrongInput{e}
+			return "", e
 		default:
 			log.Println("ERROR: failed to create user", e.Error())
 			return "", e
@@ -36,8 +36,4 @@ func (c *CreateUserCommand) Execute(ctx context.Context, args CreateUserCommandA
 	}
 
 	return id.Value, nil
-}
-
-type ErrWrongInput struct {
-	user.ModelValidationError
 }

@@ -41,6 +41,13 @@ Response types:
 
 ### Get User By Id
 **GET** `/users/{id}`
+Example:
+```sh
+    curl -i \                                        
+        -H "Content-Type: application/json" \
+        -X POST -d '{"name":"John","lastName":"Doe","age":40}' \
+        localhost:8080/users
+```
 Response types:
 - **200** - OK;
 ```json
@@ -48,7 +55,7 @@ Response types:
     "id": "some1234id5678",
     "name": "John",
     "last_name": "Doe",
-    "age": 30,
+    "age": 40,
     "recording_date": "05-05-2021T20:30:15"
 }
 ```

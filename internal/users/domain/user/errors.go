@@ -1,17 +1,20 @@
 package user
 
-import "fmt"
+import (
+	"fmt"
+	"strings"
+)
 
 type ModelValidationError struct {
 	FieldErrors []FieldValidationError
 }
 
 func (e ModelValidationError) Error() string {
-	msg := "Validation errors:"
+	errs := make([]string, 0)
 	for _, fe := range e.FieldErrors {
-		msg += fmt.Sprintf(" %s (%s),", fe.Field, fe.Message)
+		errs = append(errs, fmt.Sprintf("%s (%s)", fe.Field, fe.Message))
 	}
-	return msg
+	return fmt.Sprintf("Validation errors: %s", strings.Join(errs, ", "))
 }
 
 type FieldValidationError struct {
