@@ -15,7 +15,7 @@ type UserResponse struct {
 	Name          string `json:"name"`
 	LastName      string `json:"lastName"`
 	Age           int    `json:"age"`
-	RecordingDate string `json:"recordingDate"`
+	RecordingDate int64  `json:"recordingDate"`
 }
 
 func (d *UserResponse) Render(res http.ResponseWriter, req *http.Request) error {

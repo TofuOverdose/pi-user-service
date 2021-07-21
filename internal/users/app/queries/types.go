@@ -7,17 +7,17 @@ type User struct {
 	Name          string
 	LastName      string
 	Age           uint8
-	RecordingDate string
+	RecordingDate int64
 }
 
-func marshalUser(usr *user.User, dateFormat string) *User {
+func marshalUser(usr *user.User) *User {
 	props := usr.GetProps()
 	return &User{
 		Id:            usr.GetId().Value,
 		Name:          props.Name,
 		LastName:      props.LastName,
 		Age:           props.Age.Value,
-		RecordingDate: props.RecordingDate.Format(dateFormat),
+		RecordingDate: props.RecordingDate.Unix(),
 	}
 }
 

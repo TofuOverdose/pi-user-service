@@ -24,14 +24,6 @@ message GetUserByIdRequest {
     string user_id = 1;
 }
 
-message GetUserByIdResponse {
-    string id = 1;
-    string name = 2;
-    string last_name = 3;
-    uint32 age = 4;
-    string recording_date = 5;
-}
-
 message ListUsersRequest {
     ListUsersSort sort_order = 1;
 }
@@ -45,7 +37,7 @@ message User {
     string name = 2;
     string last_name = 3;
     uint32 age = 4;
-    string recording_date = 5;
+    int64 recording_date = 5;
 }
 
 message ListUsersSort {

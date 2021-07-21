@@ -11,7 +11,6 @@ import (
 
 type ListUsersQuery struct {
 	UserRepository user.UserRepository
-	DateTimeFormat string
 }
 
 func (c *ListUsersQuery) Execute(ctx context.Context, args ListUsersQueryArgs) (*ListUsersQueryRes, error) {
@@ -26,7 +25,7 @@ func (c *ListUsersQuery) Execute(ctx context.Context, args ListUsersQueryArgs) (
 	}
 	data := make([]*User, len(res.Users))
 	for i, u := range res.Users {
-		data[i] = marshalUser(u, c.DateTimeFormat)
+		data[i] = marshalUser(u)
 	}
 	return &ListUsersQueryRes{
 		Data: data,

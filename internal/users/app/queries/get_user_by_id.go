@@ -9,7 +9,6 @@ import (
 
 type GetUserByIdQuery struct {
 	UserRepository user.UserRepository
-	DateTimeFormat string
 }
 
 func (c *GetUserByIdQuery) Execute(ctx context.Context, id string) (*User, error) {
@@ -23,5 +22,5 @@ func (c *GetUserByIdQuery) Execute(ctx context.Context, id string) (*User, error
 		return nil, ErrUserNotFound{}
 	}
 
-	return marshalUser(usr, c.DateTimeFormat), nil
+	return marshalUser(usr), nil
 }

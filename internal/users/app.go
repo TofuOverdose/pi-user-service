@@ -28,11 +28,9 @@ func makeApp() *app.UserApp {
 		Queries: app.UserAppQueries{
 			GetUserById: queries.GetUserByIdQuery{
 				UserRepository: userRepository,
-				DateTimeFormat: time.RFC3339,
 			},
 			ListUsers: queries.ListUsersQuery{
 				UserRepository: userRepository,
-				DateTimeFormat: time.RFC3339,
 			},
 		},
 	}

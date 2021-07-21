@@ -43,10 +43,7 @@ Response types:
 **GET** `/users/{id}`
 Example:
 ```sh
-    curl -i \                                        
-        -H "Content-Type: application/json" \
-        -X POST -d '{"name":"John","lastName":"Doe","age":40}' \
-        localhost:8080/users
+    curl -i -H "Content-Type: application/json" -X POST -d '{"name":"John","lastName":"Doe","age":40}' localhost:8080/users
 ```
 Response types:
 - **200** - OK;
