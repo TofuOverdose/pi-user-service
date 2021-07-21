@@ -61,7 +61,7 @@ func (r *UserRepository) GetUserById(uid user.UserId) (*user.User, bool, error) 
 	var u userModel
 	objId, err := primitive.ObjectIDFromHex(uid.Value)
 	if err != nil {
-		return nil, false, err
+		return nil, false, nil
 	}
 	err = r.userCollection().FindOne(
 		context.TODO(),

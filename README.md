@@ -63,4 +63,7 @@ Response types:
 
 
 ### Get List Of Users
-???
+**GET** `/users`
+Response:
+- **200** - OK
+
